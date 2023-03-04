@@ -1,0 +1,61 @@
+@use 'general' as *;
+@use 'colors' as c;
+
+// Entry Section
+.start-game {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100svh;
+	gap: 2em;
+	background-color: c.$start-game-background;
+	color: c.$start-game-font-color;
+	font-weight: bold;
+	&__title {
+		font-size: calc(4rem + 2.5vw);
+	}
+	.items-box {
+		height: auto;
+		width: min(700px, 90%);
+		padding: 4em 4em 0;
+        margin-bottom: 3em;
+		background-color: c.$menu-start-bgc;
+		border-radius: 25px;
+
+		.item {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			gap: 1em;
+			font-size: clamp(1rem, 2.5vw, 2rem);
+
+			.button-box {
+				display: flex;
+				width: 100%;
+				gap: calc(0.5rem + 2vw);
+				margin-bottom: 2em;
+				&__button {
+					width: 100%;
+					padding: 1em 0 1em 0;
+					font-size: clamp(1rem, 2.5vw, 2rem);
+					color: c.$menu-start-font;
+					background-color: c.$button-color-menu;
+					font-weight: bold;
+                    border-radius: 3rem;
+					border: none;
+                    cursor: pointer;
+
+					&--primary {
+						margin-top: 1em;
+						background-color: c.$primary;
+					}
+				}
+				&__button[autofocus] {
+					background-color: c.$button-autofocus-color-menu;
+				}
+			}
+		}
+	}
+}
