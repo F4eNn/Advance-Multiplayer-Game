@@ -1,0 +1,57 @@
+@use './assets' as *;
+.start-game {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100svh;
+	gap: 2em;
+	background-color: $start-game-background;
+	color: $start-game-font-color;
+	font-weight: bold;
+	&__title {
+		font-size: calc(4rem + 2.5vw);
+	}
+	.items-box {
+		width: min(700px, 90%);
+		padding: 4em 4em 0;
+		margin-bottom: 3em;
+		background-color: $menu-start-bgc;
+		border-radius: 25px;
+
+		.item {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			gap: 1em;
+			font-size: clamp(1rem, 2.5vw, 2rem);
+
+			.button-box {
+				display: flex;
+				width: 100%;
+				gap: calc(0.5rem + 2vw);
+				margin-bottom: 2em;
+				&__button {
+					width: 100%;
+					padding: 1em 0 1em 0;
+					font-size: clamp(1rem, 2.5vw, 2rem);
+					color: $menu-start-font;
+					background-color: $button-color-menu;
+					font-weight: bold;
+					border-radius: 3rem;
+					border: none;
+					cursor: pointer;
+
+					&--primary {
+						margin-top: 1em;
+						background-color: $primary;
+					}
+				}
+				&__button[autofocus] {
+					background-color: $button-autofocus-color-menu;
+				}
+			}
+		}
+	}
+}
