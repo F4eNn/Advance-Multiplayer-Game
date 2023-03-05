@@ -1,13 +1,14 @@
 @use './assets' as *;
 .start-game {
 	display: flex;
+	display: none;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 100svh;
 	gap: 2em;
-	background-color: $start-game-background;
-	color: $start-game-font-color;
+	background-color: $dark-background;
+	color: $primary-text-font-color;
 	font-weight: bold;
 	&__title {
 		font-size: calc(4rem + 2.5vw);
@@ -36,7 +37,7 @@
 					width: 100%;
 					padding: 1em 0 1em 0;
 					font-size: clamp(1rem, 2.5vw, 2rem);
-					color: $menu-start-font;
+					color: $white-font;
 					background-color: $button-color-menu;
 					font-weight: bold;
 					border-radius: 3rem;

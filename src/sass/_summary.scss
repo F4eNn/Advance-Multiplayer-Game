@@ -1,0 +1,65 @@
+@use 'assets' as *;
+
+.summary {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #000000b0;
+
+	&__multiplayer-mode {
+		display: flex;
+		flex-direction: column;
+		width: min(500px, 90%);
+		gap: 20px;
+		padding: 4em;
+		background-color: #fcfcfc;
+		border-radius: 15px;
+
+		.text-box {
+			text-align: center;
+			font-size: clamp(1.5rem, 3.5vw, 3rem);
+			p {
+				margin-top: 10px;
+				font-size: clamp(1.2rem, 2.5vw, 1.3rem);
+				font-weight: bold;
+				color: $primary-text-font-color;
+			}
+		}
+		.scores-box {
+			width: 100%;
+			padding: 1.5em 2.5em;
+			border-radius: 8px;
+			margin-bottom: 15px;
+
+			&__player {
+				display: flex;
+				justify-content: space-between;
+				font-size: 2rem;
+				line-height: 1em;
+				font-weight: bold;
+				.player-number {
+					font-size: clamp(1rem , 2.5vw, 1.4rem);
+				}
+				.pairs {
+					color: $dark-background;
+				}
+			}
+		}
+	}
+}
+
+// classes for Toggle in Js
+.winner {
+	background-color: $dark-background;
+	color: $white-font;
+}
+.lost {
+	background-color: $player-item-bgc;
+	color: $primary-text-font-color;
+}
+
