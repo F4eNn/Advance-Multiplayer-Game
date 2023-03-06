@@ -4,62 +4,98 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	background-color: #000000b0;
+	min-height: 100svh;
+	background-color: #000000fb;
 
-	&__multiplayer-mode {
+	&__mode {
 		display: flex;
 		flex-direction: column;
 		width: min(500px, 90%);
 		gap: 20px;
-		padding: 4em;
-		background-color: #fcfcfc;
+		padding: clamp(1em, calc(1em + 4vw), 4em);
+		background-color: $white-bgc;
 		border-radius: 15px;
+		margin: 3em 0 3em;
 
 		.text-box {
 			text-align: center;
-			font-size: clamp(1.5rem, 3.5vw, 3rem);
+			font-size: clamp(1.8rem, 3.5vw, 3rem);
 			p {
 				margin-top: 10px;
-				font-size: clamp(1.2rem, 2.5vw, 1.3rem);
+				font-size: clamp(1.2rem, 2.5vw, 1.5rem);
 				font-weight: bold;
-				color: $primary-text-font-color;
+				color: $light-blue-font;
 			}
 		}
-		.scores-box {
-			width: 100%;
-			padding: 1.5em 2.5em;
-			border-radius: 8px;
-			margin-bottom: 15px;
-
+		.multiplayer {
+			@include player-container-styles;
 			&__player {
 				display: flex;
 				justify-content: space-between;
 				font-size: 2rem;
 				line-height: 1em;
 				font-weight: bold;
-				.player-number {
-					font-size: clamp(1rem , 2.5vw, 1.4rem);
+				.result-name {
+					font-size: clamp(1rem, 2.5vw, 1.4rem);
 				}
 				.pairs {
-					color: $dark-background;
+					color: $blue-font;
 				}
 			}
 		}
 	}
 }
-
+////////////////////////// SINGLE SECTION
+.single-box {
+	.single {
+		@include player-container-styles;
+		background-color: $grey-bgc;
+		.result-name {
+			color: $light-blue-font;
+		}
+		.time,
+		.moves {
+			color: $blue-font;
+			font-size: 2rem;
+		}
+	}
+	.button-box {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 15px;
+		margin-top: 3em;
+		&__btn {
+			flex: 200px;
+			border: none;
+			border-radius: 20px;
+			padding: .8em 0;
+			background-color: $primary;
+			color: $white-font;
+			font-weight: bold;
+			cursor: pointer;
+			font-size: 1.5rem;
+			&--colors {
+				color: $blue-font;
+				background-color: $grey-bgc;
+			}
+		}
+	}
+}
 // classes for Toggle in Js
 .winner {
-	background-color: $dark-background;
+	background-color: $dark-blue-bgc;
 	color: $white-font;
 }
 .lost {
-	background-color: $player-item-bgc;
-	color: $primary-text-font-color;
+	background-color: $grey-bgc;
+	color: $light-blue-font;
 }
-
+.multiplayer-box {
+	display: none;
+}
+.single-box{
+	display: none;
+}
+.summary{
+	display: none;
+}

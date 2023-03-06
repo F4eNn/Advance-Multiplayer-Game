@@ -1,42 +1,59 @@
 <section class="summary">
-
-    <div class="summary__multiplayer-mode">
-
+    <!-- Title -->
+    <div class="summary__mode">
         <div class="text-box">
-            <h2 class="text-box__title">Player 3 Wins!</h2>
+            <h2 class="text-box__title">You did it!</h2>
             <p>Game over! Here are the results...</p>
         </div>
-
-        <ul>
-            <li class="scores-box winner">
-                <div class="scores-box__player ">
-                    <p class="player-number">Player 3 <span id="winner">(Winner)</span></p>
-                    <p><span id="pairs"></span>8 Pairs</p>
-                </div>
-            </li>
-            <li class="scores-box lost">
-                <div class="scores-box__player">
-                    <p class="player-number">Player 3</p>
-                    <p><span class="pairs" id="pairs">8 Pairs</span></p>
-                </div>
-            </li>
-            <li class="scores-box lost">
-                <div class="scores-box__player">
-                    <p class="player-number">Player 3</p>
-                    <p><span class="pairs" id="pairs">8 Pairs</span></p>
-                </div>
-            </li>
-            <li class="scores-box lost">
-                <div class="scores-box__player">
-                    <p class="player-number">Player 3</p>
-                    <p><span class="pairs" id="pairs">8 Pairs</span></p>
-                </div>
-            </li>
-        </ul>
+        <!-- MULTIPLAYER MODE -->
+        <section class="multiplayer-box">
+            <ul>
+                <li class="multiplayer winner">
+                    <div class="multiplayer__player ">
+                        <p class="result-name">Player 3 <span id="winner">(Winner)</span></p>
+                        <p><span id="pairs"></span>8 Pairs</p>
+                    </div>
+                </li>
+                <li class="multiplayer lost">
+                    <div class="multiplayer__player">
+                        <p class="result-name">Player 3</p>
+                        <p><span class="pairs" id="pairs">8 Pairs</span></p>
+                    </div>
+                </li>
+                <li class="multiplayer lost">
+                    <div class="multiplayer__player">
+                        <p class="result-name">Player 3</p>
+                        <p><span class="pairs" id="pairs">8 Pairs</span></p>
+                    </div>
+                </li>
+                <li class="multiplayer lost">
+                    <div class="multiplayer__player">
+                        <p class="result-name">Player 3</p>
+                        <p><span class="pairs" id="pairs">8 Pairs</span></p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <!-- SINGLE MODE -->
+        <section class="single-box">
+            <ul>
+                <li class="single">
+                    <div class="multiplayer__player">
+                        <p class="result-name">Time Elapsed</p>
+                        <p class="time">1:53</p>
+                    </div>
+                </li>
+                <li class="single">
+                    <div class="multiplayer__player">
+                        <p class="result-name">Moves Taken</p>
+                        <p class="moves"><span id="number-of-moves">39</span> Moves</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="button-box">
+                <button class="button-box__btn">Restart</button>
+                <button class="button-box__btn button-box__btn--colors">Setup New Game</button>
+            </div>
+        </section>
     </div>
-
-    
-    <div class="container__single-mode"></div>
-
-
 </section>
