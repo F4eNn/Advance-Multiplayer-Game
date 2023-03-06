@@ -4,3 +4,9 @@
 	border-radius: 8px;
 	margin-bottom: 15px;
 }
+@mixin main-content-butons{
+	border-radius:20px;
+	border: none;
+	padding: 0 1.5em;
+	cursor: pointer;
+}
