@@ -1,12 +1,43 @@
+@use 'colors' as *;
+
 @mixin player-container-styles {
 	width: 100%;
 	padding: 15px 25px;
 	border-radius: 8px;
 	margin-bottom: 15px;
 }
-@mixin main-content-butons{
-	border-radius:20px;
+@mixin main-content-butons {
+	border-radius: 20px;
 	border: none;
 	padding: 0 1.5em;
 	cursor: pointer;
+}
+@mixin grid-setup {
+	display: grid;
+	justify-content: center;
+	margin-top: 6rem;
+	gap: calc(0.7em + 1vw);
+}
+@mixin grid-item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	font-weight: bold;
+	background-color: $dark-blue-bgc;
+	color: $white-font;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+@mixin player-name {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.7em 1.4em;
+	font-size: 1.4rem;
+	border-radius: 5px;
+	color: $light-blue-font;
+	font-weight: bold;
 }
