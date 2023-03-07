@@ -1,0 +1,56 @@
+@use 'assets' as *;
+
+.game-content {
+	.nav {
+		width: 100%;
+		line-height: 40px;
+		display: flex;
+		justify-content: space-between;
+		padding: 2em;
+		.buttons-desktop {
+			display: none;
+			gap: 1em;
+			&__btn {
+				@include main-content-butons;
+				background-color: $primary;
+				color: $white-font;
+				padding: 0 2.5em;
+				font-weight: bold;
+				transition: background-color 0.4s;
+				&--new-game {
+					background-color: $grey-bgc;
+					color: $dark-blue-font;
+				}
+				&--new-game:hover {
+					color: $white-font;
+					background-color: $blue-hover;
+				}
+				&--restart:hover {
+					background-color: $primary-hover;
+				}
+			}
+		}
+		&__menu-mobile {
+			@include main-content-butons;
+			background-color: $primary;
+			color: $white-font;
+			padding: 0 2.5em;
+		}
+		&__title {
+			font-size: clamp(2.5rem, 2.5vw, 4.5rem);
+		}
+	}
+}
+////////////////////////// MEDIA
+@media (min-width: 576px) {
+	.game-content {
+		.nav {
+			.buttons-desktop {
+				display: flex;
+			}
+			&__menu-mobile {
+				display: none;
+			}
+		}
+	}
+}

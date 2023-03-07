@@ -11,45 +11,6 @@
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	.nav {
-		width: 100%;
-		line-height: 40px;
-		display: flex;
-		justify-content: space-between;
-		padding: 2em;
-		.buttons-desktop {
-			display: none;
-			gap: 1em;
-			&__btn {
-				@include main-content-butons;
-				background-color: $primary;
-				color: $white-font;
-				padding: 0 2.5em;
-				font-weight: bold;
-				transition: background-color 0.4s;
-				&--new-game {
-					background-color: $grey-bgc;
-					color: $dark-blue-font;
-				}
-				&--new-game:hover {
-					color: $white-font;
-					background-color: $blue-hover;
-				}
-				&--restart:hover {
-					background-color: $primary-hover;
-				}
-			}
-		}
-		&__menu-mobile {
-			@include main-content-butons;
-			background-color: $primary;
-			color: $white-font;
-			padding: 0 2.5em;
-		}
-		&__title {
-			font-size: clamp(2.5rem, 2.5vw, 4.5rem);
-		}
-	}
 	.large-grid-container {
 		@include grid-setup;
 		grid-template-columns: repeat(6, clamp(23px, calc(23px + 6vw), 70px));
@@ -77,79 +38,7 @@
 			font-size: clamp(2rem, calc(1.5rem + 1vw), 5rem);
 		}
 	}
-	.footer-multiplayer {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		width: 100%;
-		margin: 6rem 1rem 0rem 1rem;
-		display: none;
-		.box-item {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 1.5em;
-			width: 20%;
-			.turn-info {
-				display: flex;
-				justify-content: center;
-				position: absolute;
-				left: 50%;
-				bottom: 0;
-				width: 100%;
-				transform: translate(-50%, 200%);
-				visibility: hidden;
-				letter-spacing: 2px;
-				text-transform: uppercase;
-			}
-			.player {
-				@include player-name;
-				&__pair-number {
-					font-size: 2rem;
-					color: $blue-font;
-				}
-				.long-name {
-					display: none;
-				}
-			}
-			.target-turn {
-				z-index: -2;
-				position: absolute;
-				left: 50%;
-				top: 10%;
-				width: 20px;
-				height: 20px;
-				background-color: $primary;
-				color: #fff;
-				transform-origin: left top;
-				transform: rotate(45deg) translate(-50%, -50%);
-			}
-		}
-	}
-	.footer-single {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 2em;
-		margin: 3em 0 3em;
-		width:min(90%, 450px);
-		.box-item {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100%;
-			background-color: $grey-bgc;
-			border-radius: 8px;
-			.single-player {
-				@include player-name;
-				font-size: clamp(1.5rem, 2.5vw, 2rem);
-				width: 100%;
-				display: flex;
-				min-height: 50px;
-			}
-		}
-	}
+	
 }
 /////////////////////////// classes for Toggle in Js
 .tracked {
@@ -158,47 +47,4 @@
 .untracked {
 	background-color: $grey-bgc;
 }
-////////////////////////// MEDIA
-@media (min-width: 576px) {
-	.game-content {
-		.nav {
-			.buttons-desktop {
-				display: flex;
-			}
-			&__menu-mobile {
-				display: none;
-			}
-		}
-		.footer-multiplayer {
-			margin: 5rem auto;
-			// display: none;
-			.box-item {
-				.turn-info {
-					visibility: visible;
-				}
-				.player {
-					width: 100%;
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-					padding: 1em 1.4em;
-					.long-name {
-						display: block;
-					}
-					.short-name {
-						display: none;
-					}
-				}
-			}
-		}
-		.footer-single {
-			.box-item {
-				.single-player {
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-				}
-			}
-		}
-	}
-}
+

@@ -1,0 +1,112 @@
+@use 'assets' as *;
+
+.game-content {
+	.footer-multiplayer {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		width: 100%;
+		margin: 6rem 1rem 0rem 1rem;
+		display: none;
+		.box-item {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1.5em;
+			width: 20%;
+			.turn-info {
+				display: flex;
+				justify-content: center;
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				width: 100%;
+				transform: translate(-50%, 200%);
+				visibility: hidden;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+			}
+			.player {
+				@include player-name;
+				&__pair-number {
+					font-size: 2rem;
+					color: $blue-font;
+				}
+				.long-name {
+					display: none;
+				}
+			}
+			.target-turn {
+				z-index: -2;
+				position: absolute;
+				left: 50%;
+				top: 10%;
+				width: 20px;
+				height: 20px;
+				background-color: $primary;
+				color: #fff;
+				transform-origin: left top;
+				transform: rotate(45deg) translate(-50%, -50%);
+			}
+		}
+	}
+	.footer-single {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 2em;
+		margin: 3em 0 3em;
+		width: min(90%, 450px);
+		.box-item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			background-color: $grey-bgc;
+			border-radius: 8px;
+			.single-player {
+				@include player-name;
+				font-size: clamp(1.5rem, 2.5vw, 2rem);
+				width: 100%;
+				display: flex;
+				min-height: 50px;
+			}
+		}
+	}
+}
+////////////////////////// MEDIA
+@media (min-width: 576px) {
+	.game-content {
+		.footer-multiplayer {
+			margin: 5rem auto;
+			.box-item {
+				.turn-info {
+					visibility: visible;
+				}
+				.player {
+					width: 100%;
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					padding: 1em 1.4em;
+					.long-name {
+						display: block;
+					}
+					.short-name {
+						display: none;
+					}
+				}
+			}
+		}
+		.footer-single {
+			.box-item {
+				.single-player {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+				}
+			}
+		}
+	}
+}
