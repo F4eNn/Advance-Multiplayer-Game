@@ -33,6 +33,9 @@
 				width: 100%;
 				gap: calc(0.5rem + 2vw);
 				margin-bottom: 2em;
+				&__button:hover {
+					background-color: $blue-hover;
+				}
 				&__button {
 					width: 100%;
 					padding: 1em 0 1em 0;
@@ -43,10 +46,14 @@
 					border-radius: 3rem;
 					border: none;
 					cursor: pointer;
+					transition: background-color 0.3s;
 
 					&--primary {
 						margin-top: 1em;
 						background-color: $primary;
+					}
+					&--primary:hover {
+						background-color: $primary-hover;
 					}
 				}
 				&__button[autofocus] {
@@ -58,6 +65,6 @@
 }
 // classes for Toggle in Js
 
-.start-game{
-	display: none;
-}
+// .hide-start-setup{
+// 	display: none;
+// }

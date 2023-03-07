@@ -11,6 +11,7 @@
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	display: none;
 	.large-grid-container {
 		@include grid-setup;
 		grid-template-columns: repeat(6, clamp(23px, calc(23px + 6vw), 70px));
