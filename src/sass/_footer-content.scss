@@ -58,7 +58,7 @@
 		gap: 2em;
 		margin: 3em 0 3em;
 		width: min(90%, 450px);
-		display: none;
+		// display: none;
 		.box-item {
 			display: flex;
 			justify-content: center;
@@ -76,6 +76,8 @@
 		}
 	}
 }
+
+
 ////////////////////////// MEDIA
 @media (min-width: 576px) {
 	.game-content {

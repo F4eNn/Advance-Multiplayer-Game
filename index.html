@@ -12,16 +12,14 @@
 <!-- Icons -->
 <script src="https://kit.fontawesome.com/55a6f61747.js" crossorigin="anonymous"></script>
 <!-- script -->
-<!-- <script src="./src/js/main.js" type="module" defer></script> -->
-<script src="./src/js/main.js" type="module" defer></script>
-<script src="./src/js/entrySite.js"  defer></script>
+<script src="./src/js/app.js"  defer></script>
 <!-- Styles -->
 <link rel="stylesheet" href="./dist/css/styles.min.css">
 </head>
 
 <body>
    <main>
-     <section class="start-game">
+     <section class="start-game .toggle-start-setup">
     <h1 class="start-game__title">Memory</h1>
     <div class="items-box">
         <div class="item">
@@ -91,7 +89,7 @@
             </ul>
         </section>
         <!-- SINGLE MODE -->
-        <section class="single-box">
+        <section class="single-box ">
             <ul>
                 <li class="single">
                     <div class="multiplayer__player">
@@ -120,7 +118,7 @@
             <button class="buttons-container__btn ">Resume Game</button>
         </div>
 </section>
-     <section class="game-content">
+     <section class="game-content toggle-game-content">
     <!-- Navigation -->
     <div class="nav wrapper">
         <h2 class="nav__title">memory</h2>
@@ -132,6 +130,7 @@
     </div>
     <!-- Grid Container -->
     <div class="large-grid-container wrapper">
+        <!-- <div class="grid"><i class="fa-solid fa-anchor"></i></div>
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
@@ -166,9 +165,8 @@
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
-        <div class="grid"><i class="fa-solid fa-anchor"></i></div>
-        <div class="grid"><i class="fa-solid fa-anchor"></i></div>
-        
+        <div class="grid"><i class="fa-solid fa-anchor"></i></div> -->
+
     </div>
     <div class="small-grid-container">
 
@@ -188,10 +186,10 @@
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
         <div class="grid"><i class="fa-solid fa-anchor"></i></div>
-          
+
     </div>
     <div class="footer-multiplayer wrapper">
-        <div class="box-item">
+        <!-- <div class="box-item">
             <div class="player tracked ">
                 <div class="target-turn"></div>
                 <p class="short-name">P1</p>
@@ -220,7 +218,7 @@
                 <p class="long-name">Player 4</p>
                 <p class="player__pair-number">4</p>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="footer-single wrapper">
         <div class="box-item">

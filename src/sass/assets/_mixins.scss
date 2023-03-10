@@ -15,8 +15,8 @@
 @mixin grid-setup {
 	display: grid;
 	justify-content: center;
-	margin-top: 6rem;
 	gap: calc(0.7em + 1vw);
+	margin-top: 4rem;
 }
 @mixin grid-item {
 	display: flex;
