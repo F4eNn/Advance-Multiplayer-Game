@@ -25,12 +25,15 @@ let arrayIcons = [
 	'<i class="fa-solid fa-ghost"></i>',
 	'<i class="fa-solid fa-chess"></i>',
 ]
-let randomIconLargeGrid
-let randomIconSmallGrid
-let randomNumberLargeGrid
-let randomNumberSmallGrid
-let gridID = 0
+let randomIconLargeGrid // Generates random Icons in game
+let randomIconSmallGrid //
+let randomNumberLargeGrid // Generates random Numbers in game
+let randomNumberSmallGrid //
+let gridID = 0 // adds ID to each created element
+let getThemeCheckPair
+let movesArr = []
 
+// Adds random number to each card
 const setRandomNumber = () => {
 	const largeGrid = Array(2).fill(arrayNumbers).flat()
 	largeGrid.sort(function () {
@@ -47,13 +50,14 @@ const setRandomNumber = () => {
 }
 setRandomNumber()
 
+// Adds random Icon to each card
 const setRandomIcon = () => {
 	// Icons for large grid size
-	const array = Array(2).fill(arrayIcons).flat()
-	array.sort(function () {
+	const largeGrid = Array(2).fill(arrayIcons).flat()
+	largeGrid.sort(function () {
 		return 0.5 - Math.random()
 	})
-	randomIconLargeGrid = array
+	randomIconLargeGrid = largeGrid
 	// Icons for small grid size
 	let smallArray = arrayIcons.splice(0, 8)
 	smallArray = Array(2).fill(smallArray).flat()
@@ -91,6 +95,7 @@ const getUserSettings = (quantityPlayers, getSize, getTheme) => {
 	currentTheme.forEach(theme => {
 		const getRelevantTheme = theme[0].textContent
 		arr.push(getRelevantTheme)
+		getThemeCheckPair = getRelevantTheme //check Pair function
 	})
 	lastSettingUpdate.forEach(el => {
 		const numberOfPlayers = el[1].textContent
@@ -103,7 +108,7 @@ const getUserSettings = (quantityPlayers, getSize, getTheme) => {
 	})
 	numberMapSize(arr)
 }
-
+// Creates relevant size of map
 const numberMapSize = themeSizeArray => {
 	const smallGridContainer = document.querySelector('.small-grid-container')
 	const largeGridContainer = document.querySelector('.large-grid-container')
@@ -114,42 +119,62 @@ const numberMapSize = themeSizeArray => {
 	if (themeSizeArray[1] == '4x4' && themeSizeArray[0] == 'Numbers') {
 		for (let i = 0; i < gridSmallSize; i++) {
 			gridID++
-			const gridCell = document.createElement('div')
-			gridCell.classList.add('grid')
-			gridCell.setAttribute('id', `${gridID}`)
-			gridCell.innerHTML = `${randomNumberSmallGrid[index++]}`
-			smallGridContainer.appendChild(gridCell)
+
+			const createCardItem = document.createElement('div')
+			createCardItem.classList.add('single-card-box')
+			createCardItem.setAttribute('id', `${gridID}`)
+			createCardItem.innerHTML = `
+			<div class="card">
+				<div class="theback"><i class="fa-solid fa-question"></i></div>
+				<div class="thefront">${randomNumberSmallGrid[index++]}</div>
+			</div>`
+			smallGridContainer.appendChild(createCardItem)
+			largeGridContainer.classList.add('toggle-large-grid')
 		}
 	} else if (themeSizeArray[1] == '4x4' && themeSizeArray[0] == 'Icons') {
 		for (let i = 0; i < gridSmallSize; i++) {
 			gridID++
-			const gridCell = document.createElement('div')
-			gridCell.classList.add('grid')
-			gridCell.setAttribute('id', `${gridID}`)
-			gridCell.innerHTML = `${randomIconSmallGrid[index++]}`
-			smallGridContainer.appendChild(gridCell)
+			const createCardItem = document.createElement('div')
+			createCardItem.classList.add('single-card-box')
+			createCardItem.setAttribute('id', `${gridID}`)
+			createCardItem.innerHTML = `
+			<div class="card">
+			<div class="theback"><i class="fa-solid fa-question"></i></div>
+			<div class="thefront">${randomIconSmallGrid[index++]}</div>
+			</div>`
+			smallGridContainer.appendChild(createCardItem)
+			largeGridContainer.classList.add('toggle-large-grid')
 		}
 	} else if (themeSizeArray[1] == '6x6' && themeSizeArray[0] == 'Icons') {
 		for (let i = 0; i < gridBigSize; i++) {
-			const gridCell = document.createElement('div')
-			gridID++
-			gridCell.classList.add('grid')
-			gridCell.setAttribute('id', `${gridID}`)
-			gridCell.innerHTML = `${randomIconLargeGrid[index++]}`
-			largeGridContainer.appendChild(gridCell)
+			const createCardItem = document.createElement('div')
+			createCardItem.classList.add('single-card-box')
+			createCardItem.setAttribute('id', `${gridID}`)
+			createCardItem.innerHTML = `
+			<div class="card">
+			<div class="theback"><i class="fa-solid fa-question"></i></div>
+			<div class="thefront">${randomIconLargeGrid[index++]}</div>
+			</div>`
+
+			largeGridContainer.appendChild(createCardItem)
+			smallGridContainer.classList.add('toggle-small-grid')
 		}
 	} else if (themeSizeArray[1] == '6x6' && themeSizeArray[0] == 'Numbers') {
 		for (let i = 0; i < gridBigSize; i++) {
-			const gridCell = document.createElement('div')
-			gridID++
-			gridCell.classList.add('grid')
-			gridCell.setAttribute('id', `${gridID}`)
-			gridCell.innerHTML = `${randomNumberLargeGrid[index++]}`
-			largeGridContainer.appendChild(gridCell)
+			const createCardItem = document.createElement('div')
+			createCardItem.classList.add('single-card-box')
+			createCardItem.setAttribute('id', `${gridID}`)
+			createCardItem.innerHTML = `
+			<div class="card">
+			<div class="theback"><i class="fa-solid fa-question"></i></div>
+				<div class="thefront">${randomNumberLargeGrid[index++]}</div>
+				</div>`
+			largeGridContainer.appendChild(createCardItem)
+			smallGridContainer.classList.add('toggle-small-grid')
 		}
 	}
 }
-
+// CREATES PLAYERS
 const multiplayerMode = players => {
 	const multiplayerContainer = document.querySelector('.footer-multiplayer')
 	let ID_desktop = 1
@@ -181,7 +206,6 @@ const createsRelevantMode = player => {
 		multiplayer.style.display = 'flex'
 	}
 }
-
 const prepareGame = () => {
 	const entireMenu = document.querySelector('.start-game')
 	const showGameContent = document.querySelector('.game-content')
@@ -190,67 +214,99 @@ const prepareGame = () => {
 	getUserSettings(quantityPlayers, getSize, getTheme)
 	createsRelevantMode()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const checkEachCard = () => {
-	const gridItem = document.querySelectorAll('.grid')
-	gridItem.forEach(item => {
-		 
-		const targetCard = e => {
-			console.log(e.target.textContent);
-			
-			
+/////////////////////////////////////// TO MOGE EXPORTOWAĆ
+function checkNumberPairs() {
+	const cardBox = document.querySelectorAll('.single-card-box .card')
+	let counter = 1
+	let wrong = false
+	let toggleReverseClasse1, toggleReverseClasse2, firstClick, secondClick
+	for (const card of cardBox) {
+		function proceed() {
+			toggleReverseClasse1.classList.toggle('reverse')
+			toggleReverseClasse2.classList.toggle('reverse')
+			wrong = false
 		}
+		function flipOver(e) {
+			if (!wrong && getThemeCheckPair == 'Numbers') {
+				let element = e.currentTarget
 
-		item.addEventListener('click', targetCard)
-	})
-}
-
-
-const gridItem = document.querySelectorAll('.grid')
-
-
-
-gridItem.forEach(item => {
-	const rotate = e => {
-    e.target.style.animation = 'spin2 4s linear infinite'
-		// console.log(item.getElementsByTagName('i')[0]);
-		// console.log(item.classList.add('rotate-card'));
-
-		console.log(item);
+				if (counter == 1) {
+					toggleReverseClasse1 = element
+					element.classList.toggle('reverse')
+					firstClick = e.currentTarget.textContent
+					counter++
+				} else if (counter == 2) {
+					toggleReverseClasse2 = element
+					element.classList.toggle('reverse')
+					secondClick = e.currentTarget.textContent
+					counter++
+					if (firstClick == secondClick) {
+						console.log('to prawda, równa się')
+					} else {
+						wrong = true
+						setTimeout(proceed, 1000)
+						console.log('nie równa się')
+					}
+					counter = 1
+				}
+			}
+		}
+		card.addEventListener('click', flipOver)
 	}
-
-	item.addEventListener('click', rotate)
-})
-
-
-
-
-
-
-
-
-
-
-//uruchamiamy wszystko w kolejnosci
-function loadGame (){
-	prepareGame()
-	checkEachCard()
 }
+function checkIconPairs() {
+	const cardBox = document.querySelectorAll('.single-card-box .card')
+	let counter = 1
+	let moves = 2
+	let wrong = false
+	let toggleReverseClasse1, toggleReverseClasse2, firstClick, secondClick
+	for (const card of cardBox) {
+		function proceed() {
+			toggleReverseClasse1.classList.toggle('reverse')
+			toggleReverseClasse2.classList.toggle('reverse')
+			wrong = false
+		}
+		function flipOver(e) {
+			if (!wrong && getThemeCheckPair == 'Icons') {
+				let element = e.currentTarget
 
+				if (counter == 1) {
+					toggleReverseClasse1 = element
+					element.classList.toggle('reverse')
+					firstClick = e.currentTarget.getElementsByTagName('i')[1].className
+					console.log(firstClick)
+					counter++
+				} else if (counter == 2) {
+					toggleReverseClasse2 = element
+					element.classList.toggle('reverse')
+					secondClick = e.currentTarget.getElementsByTagName('i')[1].className
+					console.log(secondClick)
+					moves = 2
+					movesArr.push(moves)
+					counter++
+					if (firstClick == secondClick) {
+						console.log('to prawda, równa się')
+						
+					} else {
+						wrong = true
+						setTimeout(proceed, 1000)
+						console.log('nie równa się')
+					}
+					counter = 1
+				}
+			}
+		}
+		card.addEventListener('click', flipOver)
+	}
+}
+const countMoveQuantity = () => {
+	const movesInput = document.querySelector('#moves')
+}
+countMoveQuantity()
+//uruchamiamy wszystko w kolejnosci
+function loadGame() {
+	prepareGame()
+	checkNumberPairs()
+	checkIconPairs()
+}
 start.addEventListener('click', loadGame)

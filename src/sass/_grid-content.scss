@@ -17,49 +17,85 @@
 		width: min(700px, 90%);
 		gap: calc(0.6em + 0.4vw);
 
-		.grid {
-			@include grid-item;
+		.single-card-box {
+			position: relative;
 			width: clamp(23px, calc(23px + 6vw), 70px);
 			height: clamp(23px, calc(23px + 6vw), 70px);
-			font-size: clamp(1.5rem, calc(1.5rem + 1vw), 3.5rem);
-		}
-		.grid:hover {
-			background-color: $blue-hover;
+			font-size: clamp(2rem, calc(1.5rem + 1vw), 5rem);
+			.card {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				transform-style: preserve-3d;
+				transition: all 0.5s ease;
+				border-radius: 50%;
+			}
+
+			.thefront {
+				@include card;
+				background-color: $light-blue-bgc;
+				color: $white-font;
+				transform: rotateY(180deg);
+			}
+			.theback {
+				@include card;
+				background-color: $dark-blue-bgc;
+				color: $white-font;
+			}
 		}
 	}
 	.small-grid-container {
 		@include grid-setup;
 		grid-template-columns: repeat(4, clamp(40px, calc(40px + 6vw), 100px));
 		width: min(700px, 90%);
-		.grid {
-			@include grid-item;
+		.single-card-box {
+			position: relative;
 			width: clamp(40px, calc(40px + 6vw), 100px);
 			height: clamp(40px, calc(40px + 6vw), 100px);
 			font-size: clamp(2rem, calc(1.5rem + 1vw), 5rem);
-		}
-		.grid:hover {
-			background-color: $blue-hover;
+			.card {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				transform-style: preserve-3d;
+				transition: all 0.5s ease;
+				border-radius: 50%;
+				// background-color: rgb(19, 19, 19);
+			}
+			.theback {
+				@include card;
+				background-color: $dark-blue-bgc;
+				color: $white-font;
+				transition: background-color 0.3s;
+			}
+			.theback:hover {
+				background-color: $blue-hover;
+			}
+
+			.thefront {
+				@include card;
+				background-color: $light-blue-bgc;
+				color: $white-font;
+				transform: rotateY(180deg);
+			}
 		}
 	}
 }
 /////////////////////////// classes for Toggle in Js
-@keyframes rotate {
-
-	from {
-		transform: rotateX(0deg);
+.game-content {
+	.toggle-large-grid {
+		display: none;
 	}
-	to{
-		transform: rotateX(180deg)
+	.toggle-small-grid {
+		display: none;
 	}
-	
 }
-@keyframes spin2 { 100% { transform:rotate(-360deg); } }
-// .rotate-card {
-//  animation: rotate 1s ease-in;
-// }
-// .toggle-game-content {
-// 	display: none;
-// }
+.toggle-game-content {
+	display: none;
+}
+.reverse {
+	transform: rotateY(180deg);
+}
 .tracked {
 	background-color: $primary;
 }
