@@ -8,13 +8,14 @@
 		width: 100%;
 		margin: 6rem 1rem 0rem 1rem;
 		display: none;
-		.box-item {
+		.multiplayer-box-item {
 			position: relative;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			gap: 1.5em;
 			width: 20%;
+			
 			.turn-info {
 				display: flex;
 				justify-content: center;
@@ -28,7 +29,9 @@
 				text-transform: uppercase;
 			}
 			.player {
+				background-color: $grey-bgc;
 				@include player-name;
+
 				&__pair-number {
 					font-size: 2rem;
 					color: $blue-font;
@@ -59,7 +62,7 @@
 		margin: 3em 0 3em;
 		width: min(90%, 450px);
 		// display: none;
-		.box-item {
+		.single-player-box-item {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -83,7 +86,7 @@
 	.game-content {
 		.footer-multiplayer {
 			margin: 5rem auto;
-			.box-item {
+			.multiplayer-box-item {
 				.turn-info {
 					visibility: visible;
 				}
@@ -92,9 +95,11 @@
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
+					align-items: center;
 					padding: 1em 1.4em;
 					.long-name {
-						display: block;
+						display: flex;
+						justify-self: flex-start;
 					}
 					.short-name {
 						display: none;
@@ -103,7 +108,7 @@
 			}
 		}
 		.footer-single {
-			.box-item {
+			.single-player-box-item {
 				.single-player {
 					display: flex;
 					flex-direction: row;

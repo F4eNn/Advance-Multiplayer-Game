@@ -31,7 +31,10 @@ let randomNumberLargeGrid // Generates random Numbers in game
 let randomNumberSmallGrid //
 let gridID = 0 // adds ID to each created element
 let getThemeCheckPair
-let movesArr = []
+let counterClicks = 1
+let countMoves = 0
+let countPairs = 0
+let changePlayerAfterMove = 1
 
 // Adds random number to each card
 const setRandomNumber = () => {
@@ -179,18 +182,18 @@ const multiplayerMode = players => {
 	const multiplayerContainer = document.querySelector('.footer-multiplayer')
 	let ID_desktop = 1
 	let ID_mobile = 1
+	let ID = 1
 
 	for (let i = 0; i < players; i++) {
 		const playerItem = document.createElement('div')
-		playerItem.classList.add('box-item')
+		playerItem.classList.add('multiplayer-box-item')
+		playerItem.setAttribute('id', `player${ID++}`)
 		playerItem.innerHTML = `
-		<div class="player untracked ">
-		<div class="target-turn"></div>
-		<p class="short-name">P${ID_mobile++}</p>
-		<p class="long-name">Player ${ID_desktop++}</p>
-		<p class="player__pair-number ">4</p>
-		</div>
-		`
+		<div class="player">
+			<p class="short-name">P${ID_mobile++}</p>
+			<p class="long-name">Player ${ID_desktop++}</p>
+			<p class="player__pair-number ">4</p>
+		</div>`
 		multiplayerContainer.appendChild(playerItem)
 	}
 }
@@ -217,7 +220,6 @@ const prepareGame = () => {
 /////////////////////////////////////// TO MOGE EXPORTOWAĆ
 function checkNumberPairs() {
 	const cardBox = document.querySelectorAll('.single-card-box .card')
-	let counter = 1
 	let wrong = false
 	let toggleReverseClasse1, toggleReverseClasse2, firstClick, secondClick
 	for (const card of cardBox) {
@@ -230,25 +232,33 @@ function checkNumberPairs() {
 			if (!wrong && getThemeCheckPair == 'Numbers') {
 				let element = e.currentTarget
 
-				if (counter == 1) {
+				if (counterClicks == 1) {
 					toggleReverseClasse1 = element
 					element.classList.toggle('reverse')
 					firstClick = e.currentTarget.textContent
-					counter++
-				} else if (counter == 2) {
+					counterClicks++
+				} else if (counterClicks == 2) {
 					toggleReverseClasse2 = element
 					element.classList.toggle('reverse')
 					secondClick = e.currentTarget.textContent
-					counter++
+					counterClicks++
 					if (firstClick == secondClick) {
-						console.log('to prawda, równa się')
+						countMoves += 1
+						countPairs++
+						changePlayerAfterMove++
+						switchTurn()
 					} else {
 						wrong = true
 						setTimeout(proceed, 1000)
 						console.log('nie równa się')
+						countMoves += 1
+						changePlayerAfterMove++
+						switchTurn()
 					}
-					counter = 1
+					counterClicks = 1
 				}
+				countMoveQuantity()
+				switchTurn()
 			}
 		}
 		card.addEventListener('click', flipOver)
@@ -256,10 +266,9 @@ function checkNumberPairs() {
 }
 function checkIconPairs() {
 	const cardBox = document.querySelectorAll('.single-card-box .card')
-	let counter = 1
-	let moves = 2
 	let wrong = false
 	let toggleReverseClasse1, toggleReverseClasse2, firstClick, secondClick
+
 	for (const card of cardBox) {
 		function proceed() {
 			toggleReverseClasse1.classList.toggle('reverse')
@@ -270,43 +279,121 @@ function checkIconPairs() {
 			if (!wrong && getThemeCheckPair == 'Icons') {
 				let element = e.currentTarget
 
-				if (counter == 1) {
+				if (counterClicks == 1) {
 					toggleReverseClasse1 = element
 					element.classList.toggle('reverse')
 					firstClick = e.currentTarget.getElementsByTagName('i')[1].className
-					console.log(firstClick)
-					counter++
-				} else if (counter == 2) {
+					counterClicks++
+				} else if (counterClicks == 2) {
 					toggleReverseClasse2 = element
 					element.classList.toggle('reverse')
 					secondClick = e.currentTarget.getElementsByTagName('i')[1].className
-					console.log(secondClick)
-					moves = 2
-					movesArr.push(moves)
-					counter++
+					counterClicks++
 					if (firstClick == secondClick) {
 						console.log('to prawda, równa się')
-						
+						countMoves += 1
+						countPairs++
+						changePlayerAfterMove++
+						switchTurn()
 					} else {
 						wrong = true
 						setTimeout(proceed, 1000)
 						console.log('nie równa się')
+						countMoves += 1
+						changePlayerAfterMove++
+						switchTurn()
 					}
-					counter = 1
+					counterClicks = 1
 				}
+				countMoveQuantity()
 			}
 		}
 		card.addEventListener('click', flipOver)
 	}
 }
+
+const switchTurn = () => {
+	const allPlayers = document.querySelectorAll('.player')
+	const targetTurn = document.createElement('div')
+	targetTurn.classList.add('target-turn')
+	const turnInfo = document.createElement('p')
+	turnInfo.classList.add('turn-info')
+	turnInfo.textContent = 'current turn'
+	const quantityOfPlayers = allPlayers.length
+	console.log(quantityOfPlayers);
+	// console.log(allPlayers)
+	if (changePlayerAfterMove == 1 && quantityOfPlayers >= changePlayerAfterMove ) {
+		allPlayers[0].style.backgroundColor = '#fda517'
+		allPlayers[0].appendChild(targetTurn)
+		allPlayers[0].appendChild(turnInfo)
+	} else if (changePlayerAfterMove == 2 && quantityOfPlayers >= changePlayerAfterMove) {
+		const target = document.querySelector('.target-turn').remove()
+		const turn = document.querySelector('.turn-info').remove()
+		allPlayers[0].style.backgroundColor = '#dfe7ec'
+		allPlayers[1].appendChild(targetTurn)
+		allPlayers[1].appendChild(turnInfo)
+		allPlayers[1].style.backgroundColor = '#fda517'
+	}else if (changePlayerAfterMove == 3 && quantityOfPlayers >= changePlayerAfterMove){
+		const target = document.querySelector('.target-turn').remove()
+		const turn = document.querySelector('.turn-info').remove()
+		allPlayers[1].style.backgroundColor = '#dfe7ec'
+		allPlayers[2].appendChild(targetTurn)
+		allPlayers[2].appendChild(turnInfo)
+		allPlayers[2].style.backgroundColor = '#fda517'
+		
+	}else{
+		const target = document.querySelector('.target-turn').remove()
+		const turn = document.querySelector('.turn-info').remove()
+		const lastElement = allPlayers[allPlayers.length -1]
+		console.log(lastElement);
+		allPlayers[0].style.backgroundColor = '#fda517'
+		allPlayers[0].appendChild(targetTurn)
+		allPlayers[0].appendChild(turnInfo)
+		changePlayerAfterMove = 1
+	}
+	console.log(changePlayerAfterMove)
+}
+
 const countMoveQuantity = () => {
 	const movesInput = document.querySelector('#moves')
+	movesInput.textContent = countMoves
 }
-countMoveQuantity()
-//uruchamiamy wszystko w kolejnosci
+
 function loadGame() {
 	prepareGame()
 	checkNumberPairs()
-	checkIconPairs()
+	checkIconPairs() // checkWhichPlayerHasTurn()
+	switchTurn()
 }
 start.addEventListener('click', loadGame)
+
+// const interval = cardBox => {
+// 	const timer = document.querySelector('#time')
+// 	let sec = 0
+// 	let min = 0
+// 	let countTime
+
+// 	cardBox.forEach(card => {
+// 		card.addEventListener('click', e => {
+// 			clearInterval(countTime)
+// 			if (e.target.className == 'theback') {
+// 				console.log(e.target.className == 'theback');
+// 				countTime = setInterval(() => {
+// 					if (sec < 9) {
+// 						sec++
+// 						timer.textContent = `${min}:0${sec}`
+// 					} else if (sec >= 9 && sec < 59) {
+// 						sec++
+// 						timer.textContent = `${min}:${sec}`
+// 					} else if (sec == 59) {
+// 						min++
+// 						sec = 0
+// 						timer.textContent = `${min}:00`
+// 					}
+// 				}, 1000)
+// 			}
+// 		})
+// 	})
+// }
+
+// Run everything in order
