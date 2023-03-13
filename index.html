@@ -52,7 +52,16 @@
         </div>
     </div>
 </section>
-     <section class="summary">
+     <section class="get-ready-timer hideTimerPopup">
+
+    <div class="container-timer">
+        <!-- <h2>Ready for</h2> -->
+        <button class="timer-button">Ready</button>
+    </div>
+
+
+</section>
+     <section class="summary show-result">
     <!-- Title -->
     <div class="summary__mode">
         <div class="text-box">
@@ -89,7 +98,7 @@
             </ul>
         </section>
         <!-- SINGLE MODE -->
-        <section class="single-box ">
+        <section class="single-box">
             <ul>
                 <li class="single">
                     <div class="multiplayer__player">
@@ -104,11 +113,11 @@
                     </div>
                 </li>
             </ul>
-            <div class="button-container">
-                <button class="button-box__btn">Restart</button>
-                <button class="button-box__btn button-box__btn--colors">Setup New Game</button>
-            </div>
         </section>
+        <div class="button-container">
+            <button class="button-container__btn" id="restartGame">Restart</button>
+            <button class="button-container__btn button-container__btn--colors" id="newGame">Setup New Game</button>
+        </div>
     </div>
 </section>
      <section class="menu">
@@ -123,8 +132,8 @@
     <div class="nav wrapper">
         <h2 class="nav__title">memory</h2>
         <div class="buttons-desktop">
-            <button class="buttons-desktop__btn buttons-desktop__btn--restart">Restart</button>
-            <button class="buttons-desktop__btn buttons-desktop__btn--new-game">New Game</button>
+            <button class="buttons-desktop__btn buttons-desktop__btn--restart" id="restartGame">Restart</button>
+            <button class="buttons-desktop__btn buttons-desktop__btn--new-game" id="newGame">New Game</button>
         </div>
         <button class="nav__menu-mobile">Menu</button>
     </div>

@@ -51,6 +51,7 @@
 }
 ////////////////////////// SINGLE SECTION
 .single-box {
+	
 	.single {
 		@include player-container-styles;
 		background-color: $grey-bgc;
@@ -63,26 +64,32 @@
 			font-size: 2rem;
 		}
 	}
-	.button-container {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 15px;
-		margin-top: 3em;
-		&__btn {
-			flex: 200px;
-			border: none;
-			border-radius: 20px;
-			padding: 0.8em 0;
-			background-color: $primary;
-			color: $white-font;
-			font-weight: bold;
-			cursor: pointer;
-			font-size: 1.5rem;
-			&--colors {
-				color: $blue-font;
-				background-color: $grey-bgc;
-			}
+}
+.button-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	&__btn {
+		flex: 200px;
+		border: none;
+		border-radius: 20px;
+		padding: 0.9em 0;
+		background-color: $primary;
+		color: $white-font;
+		font-weight: bold;
+		cursor: pointer;
+		font-size: 1.5rem;
+		transition: background-color .3s;
+		&--colors {
+			color: $blue-font;
+			background-color: $grey-bgc;
 		}
+	}
+	&__btn:hover{
+		background-color: $primary-hover;	
+	}
+	.button-container__btn--colors:hover{
+		background-color: $grey-bgc-hover;
 	}
 }
 // classes for Toggle in Js
@@ -94,13 +101,13 @@
 	background-color: $grey-bgc;
 	color: $light-blue-font;
 }
-// .multiplayer-box {
-// 	display: none;
-// }
-.single-box {
+.multiplayer-box {
 	display: none;
 }
-.summary {
+.hide-single-box {
+	display: none;
+}
+.show-result {
 	display: none;
 }
 @media (max-height: 567px) {

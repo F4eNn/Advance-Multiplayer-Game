@@ -34,6 +34,7 @@ let getThemeCheckPair
 let counterClicks = 1
 let countMoves = 0
 let changePlayerAfterMove = 1
+let countTimeTimer
 
 // Adds random number to each card
 const setRandomNumber = () => {
@@ -203,6 +204,7 @@ const createsRelevantMode = player => {
 	if (player == 1) {
 		singleplayer.style.display = 'flex'
 		multiplayer.style.display = 'none'
+		showPopupTimer()
 	} else if (player > 1) {
 		singleplayer.style.display = 'none'
 		multiplayerMode()
@@ -234,29 +236,28 @@ function checkNumberPairs() {
 
 				if (counterClicks == 1) {
 					toggleReverseClasse1 = element
-					element.classList.toggle('reverse')
+					element.classList.add('reverse')
 					firstClick = e.currentTarget.textContent
 					counterClicks++
 				} else if (counterClicks == 2) {
 					toggleReverseClasse2 = element
-					element.classList.toggle('reverse')
+					element.classList.add('reverse')
 					secondClick = e.currentTarget.textContent
 					counterClicks++
 					if (firstClick == secondClick) {
 						countPairs = 1
 						addPairToRelevantPlayer()
+						checkWhenSingleGameisOver(cardBox)
 						countMoves += 1
 						changePlayerAfterMove++
-						setTimeout(switchPlayerTurn,1250)
-
+						setTimeout(switchPlayerTurn, 500)
 					} else {
 						wrong = true
+						changePlayerAfterMove++
+						setTimeout(switchPlayerTurn, 500)
 						setTimeout(proceed, 1000)
 						console.log('nie równa się')
 						countMoves += 1
-						changePlayerAfterMove++
-						setTimeout(switchPlayerTurn,1250)
-
 					}
 					counterClicks = 1
 				}
@@ -273,8 +274,8 @@ function checkIconPairs() {
 
 	for (const card of cardBox) {
 		function proceed() {
-			toggleReverseClasse1.classList.toggle('reverse')
-			toggleReverseClasse2.classList.toggle('reverse')
+			toggleReverseClasse1.classList.remove('reverse')
+			toggleReverseClasse2.classList.remove('reverse')
 			wrong = false
 		}
 		function flipOver(e) {
@@ -283,34 +284,34 @@ function checkIconPairs() {
 
 				if (counterClicks == 1) {
 					toggleReverseClasse1 = element
-					element.classList.toggle('reverse')
+					element.classList.add('reverse')
 					firstClick = e.currentTarget.getElementsByTagName('i')[1].className
 					counterClicks++
 				} else if (counterClicks == 2) {
 					toggleReverseClasse2 = element
-					element.classList.toggle('reverse')
+					element.classList.add('reverse')
 					secondClick = e.currentTarget.getElementsByTagName('i')[1].className
 					counterClicks++
 					if (firstClick == secondClick) {
 						console.log('to prawda, równa się')
 						countPairs = 1
 						addPairToRelevantPlayer()
+						checkWhenSingleGameisOver(cardBox)
 						countMoves += 1
 						changePlayerAfterMove++
-
-						setTimeout(switchPlayerTurn,1250)
-
+						setTimeout(switchPlayerTurn, 500)
 					} else {
 						wrong = true
+						changePlayerAfterMove++
+
+						setTimeout(switchPlayerTurn, 500)
 						setTimeout(proceed, 1000)
 						console.log('nie równa się')
 						countMoves += 1
-						changePlayerAfterMove++
-						
-						setTimeout(switchPlayerTurn,1250)
 					}
 					counterClicks = 1
 				}
+
 				countMoveQuantity()
 			}
 		}
@@ -327,8 +328,8 @@ const switchPlayerTurn = () => {
 	turnInfo.textContent = 'current turn'
 	const quantityOfPlayers = allPlayers.length
 	if (changePlayerAfterMove == 1 && quantityOfPlayers >= changePlayerAfterMove) {
-		allPlayers[0].classList.toggle('untracked')
 		allPlayers[0].classList.toggle('tracked')
+		allPlayers[0].classList.toggle('untracked')
 		allPlayers[0].appendChild(targetTurn)
 		allPlayers[0].appendChild(turnInfo)
 	} else if (changePlayerAfterMove == 2 && quantityOfPlayers >= changePlayerAfterMove) {
@@ -380,11 +381,59 @@ const addPairToRelevantPlayer = () => {
 	player.children[2].textContent = inputValue
 }
 
-
-
+const movesInput = document.querySelector('#moves')
 const countMoveQuantity = () => {
-	const movesInput = document.querySelector('#moves')
 	movesInput.textContent = countMoves
+}
+
+const timerPopup = document.querySelector('.get-ready-timer')
+const btnTimer = document.querySelector('.timer-button')
+const timerInput = document.querySelector('#time')
+
+const showPopupTimer = () => {
+	timerPopup.classList.toggle('hideTimerPopup')
+}
+
+const closeTimerAndStartCount = () => {
+	let sec = 0
+	let min = 0
+
+	timerPopup.classList.toggle('hideTimerPopup')
+
+	countTimeTimer = setInterval(() => {
+		if (sec < 9) {
+			sec++
+			timerInput.textContent = `${min}:0${sec}`
+		} else if (sec >= 9 && sec < 59) {
+			sec++
+			timerInput.textContent = `${min}:${sec}`
+		} else if (sec >= 59) {
+			min++
+			sec = 0
+			timerInput.textContent = `${min}:00`
+		}
+	}, 1000)
+}
+
+const checkWhenSingleGameisOver = cards => {
+	const reversedCard = document.querySelectorAll('.reverse')
+	console.log(cards.length)
+	console.log(reversedCard)
+	if (reversedCard.length == cards.length) {
+		console.log('wszystkie karty są odkryte')
+		showResultSingleMode()
+	} else {
+		console.log('nie wszystkie karty są odkryte')
+	}
+}
+const showResultSingleMode = () => {
+	const assignMoves = document.querySelector('#number-of-moves')
+	const assignTime = document.querySelector('.time')
+	const summaryContainer = document.querySelector('.summary')
+	assignTime.textContent = timerInput.textContent
+	assignMoves.textContent = Number(movesInput.textContent) + 1
+	clearInterval(countTimeTimer)
+	summaryContainer.classList.toggle('show-result')
 }
 
 function loadGame() {
@@ -393,6 +442,26 @@ function loadGame() {
 	checkIconPairs() // checkWhichPlayerHasTurn()
 	switchPlayerTurn()
 }
+const restartEntireRound = () => {
+	counterClicks = 1
+	changePlayerAfterMove = 1
+	const cardBox = document.querySelectorAll('.single-card-box')
+	const showGameContent = document.querySelector('.game-content')
+	const multiplayerContainer = document.querySelectorAll('.footer-multiplayer .multiplayer-box-item')
+	multiplayerContainer.forEach(player => player.remove())
+	cardBox.forEach(card => card.remove())
+	showGameContent.classList.remove('toggle-game-content')
+	getUserSettings(quantityPlayers, getSize, getTheme)
+	clearInterval(countTimeTimer)
+	timerInput.textContent = '0:00'
+	movesInput.textContent = '0'
+	switchPlayerTurn()
+	checkNumberPairs()
+	checkIconPairs() // checkWhichPlayerHasTurn()
+}
+
+const restartGame = document.querySelectorAll('#restartGame')
+restartGame.forEach(btn => btn.addEventListener('click', restartEntireRound))
+btnTimer.addEventListener('click', closeTimerAndStartCount)
 start.addEventListener('click', loadGame)
 
-// Run everything in order
