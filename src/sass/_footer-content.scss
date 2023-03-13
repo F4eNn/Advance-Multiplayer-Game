@@ -29,7 +29,7 @@
 				text-transform: uppercase;
 			}
 			.player {
-				background-color: $grey-bgc;
+				// background-color: $grey-bgc;
 				@include player-name;
 
 				&__pair-number {
@@ -75,6 +75,18 @@
 				width: 100%;
 				display: flex;
 				min-height: 50px;
+			}
+		}
+	}
+}
+.game-content{
+	.footer-multiplayer{
+		.multiplayer-box-item{
+			.untracked{
+				background-color: $grey-bgc;
+			}
+			.tracked{
+				background-color: $primary;
 			}
 		}
 	}

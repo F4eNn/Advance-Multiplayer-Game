@@ -33,7 +33,6 @@ let gridID = 0 // adds ID to each created element
 let getThemeCheckPair
 let counterClicks = 1
 let countMoves = 0
-let countPairs = 0
 let changePlayerAfterMove = 1
 
 // Adds random number to each card
@@ -183,16 +182,17 @@ const multiplayerMode = players => {
 	let ID_desktop = 1
 	let ID_mobile = 1
 	let ID = 1
+	let playerPairID = 1
 
 	for (let i = 0; i < players; i++) {
 		const playerItem = document.createElement('div')
 		playerItem.classList.add('multiplayer-box-item')
 		playerItem.setAttribute('id', `player${ID++}`)
 		playerItem.innerHTML = `
-		<div class="player">
+		<div class="player untracked">
 			<p class="short-name">P${ID_mobile++}</p>
 			<p class="long-name">Player ${ID_desktop++}</p>
-			<p class="player__pair-number ">4</p>
+			<p class="player__pair-number id="pair${playerPairID++}">0</p>
 		</div>`
 		multiplayerContainer.appendChild(playerItem)
 	}
@@ -243,22 +243,24 @@ function checkNumberPairs() {
 					secondClick = e.currentTarget.textContent
 					counterClicks++
 					if (firstClick == secondClick) {
+						countPairs = 1
+						addPairToRelevantPlayer()
 						countMoves += 1
-						countPairs++
 						changePlayerAfterMove++
-						switchTurn()
+						setTimeout(switchPlayerTurn,1250)
+
 					} else {
 						wrong = true
 						setTimeout(proceed, 1000)
 						console.log('nie równa się')
 						countMoves += 1
 						changePlayerAfterMove++
-						switchTurn()
+						setTimeout(switchPlayerTurn,1250)
+
 					}
 					counterClicks = 1
 				}
 				countMoveQuantity()
-				switchTurn()
 			}
 		}
 		card.addEventListener('click', flipOver)
@@ -291,17 +293,21 @@ function checkIconPairs() {
 					counterClicks++
 					if (firstClick == secondClick) {
 						console.log('to prawda, równa się')
+						countPairs = 1
+						addPairToRelevantPlayer()
 						countMoves += 1
-						countPairs++
 						changePlayerAfterMove++
-						switchTurn()
+
+						setTimeout(switchPlayerTurn,1250)
+
 					} else {
 						wrong = true
 						setTimeout(proceed, 1000)
 						console.log('nie równa się')
 						countMoves += 1
 						changePlayerAfterMove++
-						switchTurn()
+						
+						setTimeout(switchPlayerTurn,1250)
 					}
 					counterClicks = 1
 				}
@@ -312,7 +318,7 @@ function checkIconPairs() {
 	}
 }
 
-const switchTurn = () => {
+const switchPlayerTurn = () => {
 	const allPlayers = document.querySelectorAll('.player')
 	const targetTurn = document.createElement('div')
 	targetTurn.classList.add('target-turn')
@@ -320,39 +326,61 @@ const switchTurn = () => {
 	turnInfo.classList.add('turn-info')
 	turnInfo.textContent = 'current turn'
 	const quantityOfPlayers = allPlayers.length
-	console.log(quantityOfPlayers);
-	// console.log(allPlayers)
-	if (changePlayerAfterMove == 1 && quantityOfPlayers >= changePlayerAfterMove ) {
-		allPlayers[0].style.backgroundColor = '#fda517'
+	if (changePlayerAfterMove == 1 && quantityOfPlayers >= changePlayerAfterMove) {
+		allPlayers[0].classList.toggle('untracked')
+		allPlayers[0].classList.toggle('tracked')
 		allPlayers[0].appendChild(targetTurn)
 		allPlayers[0].appendChild(turnInfo)
 	} else if (changePlayerAfterMove == 2 && quantityOfPlayers >= changePlayerAfterMove) {
 		const target = document.querySelector('.target-turn').remove()
 		const turn = document.querySelector('.turn-info').remove()
-		allPlayers[0].style.backgroundColor = '#dfe7ec'
+		allPlayers[0].classList.toggle('untracked')
+		allPlayers[0].classList.toggle('tracked')
+		allPlayers[1].classList.toggle('untracked')
+		allPlayers[1].classList.toggle('tracked')
 		allPlayers[1].appendChild(targetTurn)
 		allPlayers[1].appendChild(turnInfo)
-		allPlayers[1].style.backgroundColor = '#fda517'
-	}else if (changePlayerAfterMove == 3 && quantityOfPlayers >= changePlayerAfterMove){
+	} else if (changePlayerAfterMove == 3 && quantityOfPlayers >= changePlayerAfterMove) {
 		const target = document.querySelector('.target-turn').remove()
 		const turn = document.querySelector('.turn-info').remove()
-		allPlayers[1].style.backgroundColor = '#dfe7ec'
+		allPlayers[1].classList.toggle('untracked')
+		allPlayers[1].classList.toggle('tracked')
+		allPlayers[2].classList.toggle('untracked')
+		allPlayers[2].classList.toggle('tracked')
 		allPlayers[2].appendChild(targetTurn)
 		allPlayers[2].appendChild(turnInfo)
-		allPlayers[2].style.backgroundColor = '#fda517'
-		
-	}else{
+	} else if (changePlayerAfterMove == 4 && quantityOfPlayers >= changePlayerAfterMove) {
 		const target = document.querySelector('.target-turn').remove()
 		const turn = document.querySelector('.turn-info').remove()
-		const lastElement = allPlayers[allPlayers.length -1]
-		console.log(lastElement);
-		allPlayers[0].style.backgroundColor = '#fda517'
+		allPlayers[2].classList.toggle('untracked')
+		allPlayers[2].classList.toggle('tracked')
+		allPlayers[3].classList.toggle('untracked')
+		allPlayers[3].classList.toggle('tracked')
+		allPlayers[3].appendChild(targetTurn)
+		allPlayers[3].appendChild(turnInfo)
+	} else {
+		const target = document.querySelector('.target-turn').remove()
+		const turn = document.querySelector('.turn-info').remove()
+		const lastElement = allPlayers[allPlayers.length - 1]
+		lastElement.classList.toggle('tracked')
+		lastElement.classList.toggle('untracked')
+		allPlayers[0].classList.toggle('untracked')
+		allPlayers[0].classList.toggle('tracked')
 		allPlayers[0].appendChild(targetTurn)
 		allPlayers[0].appendChild(turnInfo)
 		changePlayerAfterMove = 1
 	}
-	console.log(changePlayerAfterMove)
 }
+const addPairToRelevantPlayer = () => {
+	const player = document.querySelector('.tracked')
+	let EachPlayer = 0
+	EachPlayer++
+	let inputValue = Number(player.children[2].textContent)
+	inputValue += EachPlayer
+	player.children[2].textContent = inputValue
+}
+
+
 
 const countMoveQuantity = () => {
 	const movesInput = document.querySelector('#moves')
@@ -363,37 +391,8 @@ function loadGame() {
 	prepareGame()
 	checkNumberPairs()
 	checkIconPairs() // checkWhichPlayerHasTurn()
-	switchTurn()
+	switchPlayerTurn()
 }
 start.addEventListener('click', loadGame)
-
-// const interval = cardBox => {
-// 	const timer = document.querySelector('#time')
-// 	let sec = 0
-// 	let min = 0
-// 	let countTime
-
-// 	cardBox.forEach(card => {
-// 		card.addEventListener('click', e => {
-// 			clearInterval(countTime)
-// 			if (e.target.className == 'theback') {
-// 				console.log(e.target.className == 'theback');
-// 				countTime = setInterval(() => {
-// 					if (sec < 9) {
-// 						sec++
-// 						timer.textContent = `${min}:0${sec}`
-// 					} else if (sec >= 9 && sec < 59) {
-// 						sec++
-// 						timer.textContent = `${min}:${sec}`
-// 					} else if (sec == 59) {
-// 						min++
-// 						sec = 0
-// 						timer.textContent = `${min}:00`
-// 					}
-// 				}, 1000)
-// 			}
-// 		})
-// 	})
-// }
 
 // Run everything in order
