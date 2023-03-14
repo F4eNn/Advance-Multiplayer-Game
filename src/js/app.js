@@ -1,9 +1,18 @@
 const buttons = document.querySelectorAll('.button-box button ')
 const start = document.querySelector('.button-box__button--primary')
+const timerPopup = document.querySelector('.get-ready-timer')
+const btnTimer = document.querySelector('.timer-button')
+const timerInput = document.querySelector('#time')
+const movesInput = document.querySelector('#moves')
+const summaryContainer = document.querySelector('.summary')
+const assignMoves = document.querySelector('#number-of-moves')
+const assignTime = document.querySelector('.time')
+const restartGame = document.querySelectorAll('#restartGame')
+const pairsInputMultimode = document.querySelector('#pairs')
+const singleBoxSummary = document.querySelector('.single-box')
+const multiplayerBoxSummary = document.querySelector('.multiplayer-box')
+const title = document.querySelector('.text-box__title')
 
-let quantityPlayers = [] // User settings 'numbers of players'
-let getSize = [] // User settings 'grid size'
-let getTheme = [] // User settings 'select theme'
 let arrayNumbers = [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 let arrayIcons = [
 	'<i class="fa-solid fa-wheat-awn"></i>',
@@ -25,6 +34,9 @@ let arrayIcons = [
 	'<i class="fa-solid fa-ghost"></i>',
 	'<i class="fa-solid fa-chess"></i>',
 ]
+let quantityPlayers = [] // User settings 'numbers of players'
+let getSize = [] // User settings 'grid size'
+let getTheme = [] // User settings 'select theme'
 let randomIconLargeGrid // Generates random Icons in game
 let randomIconSmallGrid //
 let randomNumberLargeGrid // Generates random Numbers in game
@@ -191,8 +203,8 @@ const multiplayerMode = players => {
 		playerItem.setAttribute('id', `player${ID++}`)
 		playerItem.innerHTML = `
 		<div class="player untracked">
-			<p class="short-name">P${ID_mobile++}</p>
-			<p class="long-name">Player ${ID_desktop++}</p>
+			<p class="short-name name">P${ID_mobile++}</p>
+			<p class="long-name name">Player ${ID_desktop++}</p>
 			<p class="player__pair-number id="pair${playerPairID++}">0</p>
 		</div>`
 		multiplayerContainer.appendChild(playerItem)
@@ -224,6 +236,7 @@ function checkNumberPairs() {
 	const cardBox = document.querySelectorAll('.single-card-box .card')
 	let wrong = false
 	let toggleReverseClasse1, toggleReverseClasse2, firstClick, secondClick
+
 	for (const card of cardBox) {
 		function proceed() {
 			toggleReverseClasse1.classList.toggle('reverse')
@@ -247,7 +260,7 @@ function checkNumberPairs() {
 					if (firstClick == secondClick) {
 						countPairs = 1
 						addPairToRelevantPlayer()
-						checkWhenSingleGameisOver(cardBox)
+						checkWhenGameisOver(cardBox)
 						countMoves += 1
 						changePlayerAfterMove++
 						setTimeout(switchPlayerTurn, 500)
@@ -256,7 +269,6 @@ function checkNumberPairs() {
 						changePlayerAfterMove++
 						setTimeout(switchPlayerTurn, 500)
 						setTimeout(proceed, 1000)
-						console.log('nie równa się')
 						countMoves += 1
 					}
 					counterClicks = 1
@@ -269,6 +281,7 @@ function checkNumberPairs() {
 }
 function checkIconPairs() {
 	const cardBox = document.querySelectorAll('.single-card-box .card')
+
 	let wrong = false
 	let toggleReverseClasse1, toggleReverseClasse2, firstClick, secondClick
 
@@ -296,7 +309,7 @@ function checkIconPairs() {
 						console.log('to prawda, równa się')
 						countPairs = 1
 						addPairToRelevantPlayer()
-						checkWhenSingleGameisOver(cardBox)
+						checkWhenGameisOver(cardBox)
 						countMoves += 1
 						changePlayerAfterMove++
 						setTimeout(switchPlayerTurn, 500)
@@ -381,14 +394,9 @@ const addPairToRelevantPlayer = () => {
 	player.children[2].textContent = inputValue
 }
 
-const movesInput = document.querySelector('#moves')
 const countMoveQuantity = () => {
 	movesInput.textContent = countMoves
 }
-
-const timerPopup = document.querySelector('.get-ready-timer')
-const btnTimer = document.querySelector('.timer-button')
-const timerInput = document.querySelector('#time')
 
 const showPopupTimer = () => {
 	timerPopup.classList.toggle('hideTimerPopup')
@@ -415,25 +423,88 @@ const closeTimerAndStartCount = () => {
 	}, 1000)
 }
 
-const checkWhenSingleGameisOver = cards => {
+const checkWhenGameisOver = cards => {
+	const players = document.querySelectorAll('.player')
 	const reversedCard = document.querySelectorAll('.reverse')
-	console.log(cards.length)
-	console.log(reversedCard)
-	if (reversedCard.length == cards.length) {
-		console.log('wszystkie karty są odkryte')
+	if (players.length === 1) {
 		showResultSingleMode()
+	} else if (players.length > 1) {
+		showResultMultiplayeMode()
+		CreatePlayersInSummary(players)
 	} else {
-		console.log('nie wszystkie karty są odkryte')
+		// console.log('nie wszystkie karty są odkryte')
 	}
+	// reversedCard.length == cards.length &&
 }
+
 const showResultSingleMode = () => {
-	const assignMoves = document.querySelector('#number-of-moves')
-	const assignTime = document.querySelector('.time')
-	const summaryContainer = document.querySelector('.summary')
 	assignTime.textContent = timerInput.textContent
 	assignMoves.textContent = Number(movesInput.textContent) + 1
 	clearInterval(countTimeTimer)
 	summaryContainer.classList.toggle('show-result')
+	multiplayerBoxSummary.classList.add('hide-multiplayer-box')
+}
+
+const showResultMultiplayeMode = () => {
+	summaryContainer.classList.toggle('show-result')
+	singleBoxSummary.classList.add('hide-single-box')
+}
+
+const CreatePlayersInSummary = players => {
+	const ulList = document.querySelector('.multiplayer-box ul')
+	const multiplayerBoxItem = document.getElementsByClassName('pair')
+	let index = 0
+	let addRelevantPlayer = 0
+	let arrayPlayers = []
+	for (let i = 0; i < players.length; i++) {
+		let eachPlayer = {}
+		const player = players[index].children[1].textContent
+		const playerPair = players[index].children[2].textContent
+		eachPlayer['player'] = player
+		eachPlayer['pairs'] = playerPair
+		arrayPlayers.push(eachPlayer)
+		index++
+	}
+	arrayPlayers.sort((a, b) => {
+		return b.pairs - a.pairs
+	})
+	const newArray = { ...arrayPlayers }
+
+	for (let i = 0; i < players.length; i++) {
+		const newLiItem = document.createElement('li')
+		newLiItem.classList.add('multiplayer', 'lost')
+		newLiItem.innerHTML = `
+		<div class="multiplayer__player ">
+		<p class="result-name">${newArray[addRelevantPlayer].player}</p>
+		<p><span class="pair">${newArray[addRelevantPlayer].pairs}</span> Pairs</p>
+		</div>`
+		ulList.appendChild(newLiItem)
+		addRelevantPlayer++
+	}
+	winnerMultiplayer(multiplayerBoxItem, newArray)
+	checkDraw(multiplayerBoxItem, newArray)
+}
+
+const checkDraw = (boxItems, array) => {
+	const draw = boxItems[1].closest('.multiplayer')
+	const firstWinner = array[0].pairs
+	if (firstWinner == array[1].pairs) {
+		console.log('równa się')
+	} else {
+		title.textContent = "it's a Tie!"
+		addBadge[1].innerHTML = `${array[1].player} (winner)`
+		draw.classList.toggle('lost')
+		draw.classList.toggle('winner')
+		console.log('nie równa sie')
+	}
+}
+
+const winnerMultiplayer = (boxItems, array) => {
+	const winner = boxItems[0].closest('.multiplayer')
+	title.textContent = `${array[0].player} wins!`
+	addBadge[0].innerHTML = `${array[0].player} (winner)`
+	winner.classList.toggle('lost')
+	winner.classList.toggle('winner')
 }
 
 function loadGame() {
@@ -442,12 +513,16 @@ function loadGame() {
 	checkIconPairs() // checkWhichPlayerHasTurn()
 	switchPlayerTurn()
 }
+
 const restartEntireRound = () => {
 	counterClicks = 1
 	changePlayerAfterMove = 1
+	countMoves = 0
 	const cardBox = document.querySelectorAll('.single-card-box')
 	const showGameContent = document.querySelector('.game-content')
 	const multiplayerContainer = document.querySelectorAll('.footer-multiplayer .multiplayer-box-item')
+	const ulListFromSummary = document.querySelectorAll('.multiplayer')
+	ulListFromSummary.forEach(result => result.remove())
 	multiplayerContainer.forEach(player => player.remove())
 	cardBox.forEach(card => card.remove())
 	showGameContent.classList.remove('toggle-game-content')
@@ -458,10 +533,9 @@ const restartEntireRound = () => {
 	switchPlayerTurn()
 	checkNumberPairs()
 	checkIconPairs() // checkWhichPlayerHasTurn()
+	summaryContainer.classList.add('show-result')
 }
 
-const restartGame = document.querySelectorAll('#restartGame')
 restartGame.forEach(btn => btn.addEventListener('click', restartEntireRound))
 btnTimer.addEventListener('click', closeTimerAndStartCount)
 start.addEventListener('click', loadGame)
-
