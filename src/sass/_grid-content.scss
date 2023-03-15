@@ -6,7 +6,7 @@
 }
 .game-content {
 	position: relative;
-	height: min(100svh, 1200px);
+	min-height: 100svh;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;

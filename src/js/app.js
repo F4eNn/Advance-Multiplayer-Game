@@ -13,7 +13,9 @@ const singleBoxSummary = document.querySelector('.single-box')
 const multiplayerBoxSummary = document.querySelector('.multiplayer-box')
 const title = document.querySelector('.text-box__title')
 const newGame = document.querySelectorAll('#newGame')
-
+const mobileMenuBtn = document.querySelector('.nav__menu-mobile')
+const mobileMenu = document.querySelector('.menu')
+const resumeBtn = document.querySelector('#resumeGame')
 
 let arrayNumbers = [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 let arrayIcons = [
@@ -246,22 +248,18 @@ function checkNumberPairs() {
 			wrong = false
 		}
 		function flipOver(e) {
-			if (!wrong && getThemeCheckPair == 'Numbers') {
+			if (!wrong && getThemeCheckPair == 'Numbers' && !card.classList.contains('reverse')) {
 				let element = e.currentTarget
+				element.classList.toggle('reverse')
 
 				if (counterClicks == 1) {
 					toggleReverseClasse1 = element
-					element.classList.add('reverse')
 					firstClick = e.currentTarget.textContent
-					counterClicks++
+					counterClicks = 2
 				} else if (counterClicks == 2) {
 					toggleReverseClasse2 = element
-					element.classList.add('reverse')
 					secondClick = e.currentTarget.textContent
-					counterClicks++
-					const firstType = firstClick
-					const secondType = secondClick
-					if (firstType === secondType) {
+					if (firstClick == secondClick) {
 						countPairs = 1
 						addPairToRelevantPlayer()
 						checkWhenGameisOver(cardBox)
@@ -296,19 +294,17 @@ function checkIconPairs() {
 			wrong = false
 		}
 		function flipOver(e) {
-			if (!wrong && getThemeCheckPair == 'Icons') {
+			if (!wrong && getThemeCheckPair == 'Icons' && !card.classList.contains('reverse')) {
 				let element = e.currentTarget
+				element.classList.toggle('reverse')
 
 				if (counterClicks == 1) {
 					toggleReverseClasse1 = element
-					element.classList.add('reverse')
 					firstClick = e.currentTarget.getElementsByTagName('i')[1].className
-					counterClicks++
+					counterClicks = 2
 				} else if (counterClicks == 2) {
 					toggleReverseClasse2 = element
-					element.classList.add('reverse')
 					secondClick = e.currentTarget.getElementsByTagName('i')[1].className
-					counterClicks++
 					if (firstClick == secondClick) {
 						console.log('to prawda, równa się')
 						countPairs = 1
@@ -316,12 +312,12 @@ function checkIconPairs() {
 						checkWhenGameisOver(cardBox)
 						countMoves += 1
 						changePlayerAfterMove++
-						setTimeout(switchPlayerTurn, 500)
+						setTimeout(switchPlayerTurn, 400)
 					} else {
 						wrong = true
 						changePlayerAfterMove++
 
-						setTimeout(switchPlayerTurn, 500)
+						setTimeout(switchPlayerTurn, 400)
 						setTimeout(proceed, 1000)
 						console.log('nie równa się')
 						countMoves += 1
@@ -430,13 +426,13 @@ const closeTimerAndStartCount = () => {
 const checkWhenGameisOver = cards => {
 	const players = document.querySelectorAll('.player')
 	const reversedCard = document.querySelectorAll('.reverse')
-	if (reversedCard.length == cards.length && players.length === 1) {
+	if (players.length === 1) {
 		showResultSingleMode()
-	} else if (reversedCard.length == cards.length && players.length > 1) {
+	} else if (players.length > 1) {
 		showResultMultiplayeMode()
 		CreatePlayersInSummary(players)
 	}
-	
+	// reversedCard.length == cards.length &&
 }
 const showResultSingleMode = () => {
 	assignTime.textContent = timerInput.textContent
@@ -487,7 +483,7 @@ const CreatePlayersInSummary = players => {
 	// checkDraw(multiplayerBoxItem, newArray)
 }
 
-const winnerMultiplayer =  () => {
+const winnerMultiplayer = () => {
 	const liList = document.querySelectorAll('.multiplayer')
 	const firstPlayerName = document.querySelector('.result-name')
 	const playerPair = document.querySelectorAll('.pair')
@@ -497,8 +493,8 @@ const winnerMultiplayer =  () => {
 	firstWinner.classList.toggle('winner')
 	firstWinner.classList.toggle('lost')
 	let index = 1
-	for (let i = 1; i < playerPair.length; i++){
-		if(firstWinnerPairs == playerPair[index].textContent){
+	for (let i = 1; i < playerPair.length; i++) {
+		if (firstWinnerPairs == playerPair[index].textContent) {
 			const player = playerPair[index].closest('.multiplayer')
 			title.textContent = `It's a tie`
 			player.classList.toggle('winner')
@@ -512,6 +508,7 @@ function loadGame() {
 	checkNumberPairs()
 	checkIconPairs() // checkWhichPlayerHasTurn()
 	switchPlayerTurn()
+	gsap.fromTo('.container-timer', {y: -500}, {y: 0, ease: "bounce.out", duration: 2})
 }
 
 const restartEntireRound = () => {
@@ -522,6 +519,8 @@ const restartEntireRound = () => {
 	const showGameContent = document.querySelector('.game-content')
 	const multiplayerContainer = document.querySelectorAll('.footer-multiplayer .multiplayer-box-item')
 	const ulListFromSummary = document.querySelectorAll('.multiplayer')
+	setRandomNumber()
+	setRandomIcon()
 	ulListFromSummary.forEach(result => result.remove())
 	multiplayerContainer.forEach(player => player.remove())
 	cardBox.forEach(card => card.remove())
@@ -534,11 +533,16 @@ const restartEntireRound = () => {
 	checkNumberPairs()
 	checkIconPairs() // checkWhichPlayerHasTurn()
 	summaryContainer.classList.add('show-result')
+	mobileMenu.classList.add('hide-button-menu')
 }
 const setupNewGame = () => {
 	window.location.reload()
 }
+mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hide-button-menu'))
+resumeBtn.addEventListener('click', () => mobileMenu.classList.toggle('hide-button-menu'))
 newGame.forEach(btn => btn.addEventListener('click', setupNewGame))
 restartGame.forEach(btn => btn.addEventListener('click', restartEntireRound))
 btnTimer.addEventListener('click', closeTimerAndStartCount)
 start.addEventListener('click', loadGame)
+
+gsap.from('.container-timer', {duration: 2, ease: "bounce.out", y: -500 })

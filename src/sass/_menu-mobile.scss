@@ -11,7 +11,6 @@
 	min-height: 100svh;
 	background-color: $shadow-bg;
 	z-index: 100;
-	display: none;
 	.buttons-container {
         display: flex;
         flex-direction: column;
@@ -33,6 +32,17 @@
                 background-color: $primary;
                 color: #fff;
             }
+		}
+	}
+}
+.hide-button-menu{
+	display: none;
+}
+@media (max-height: 567px) {
+	.menu {
+		transform: scaleY(2.5);
+		.buttons-container {
+			transform: scaleY(0.4);
 		}
 	}
 }

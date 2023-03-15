@@ -13,6 +13,7 @@
 <script src="https://kit.fontawesome.com/55a6f61747.js" crossorigin="anonymous"></script>
 <!-- script -->
 <script src="./src/js/app.js"  defer></script>
+<script src="./src/js/main.js"  defer></script>
 <!-- Styles -->
 <link rel="stylesheet" href="./dist/css/styles.min.css">
 </head>
@@ -56,10 +57,8 @@
 
     <div class="container-timer">
         <!-- <h2>Ready for</h2> -->
-        <button class="timer-button">Ready</button>
+        <button class="timer-button">Ready!</button>
     </div>
-
-
 </section>
      <section class="summary show-result">
     <!-- Title -->
@@ -71,30 +70,6 @@
         <!-- MULTIPLAYER MODE -->
         <section class="multiplayer-box">
             <ul>
-                <!-- <li class="multiplayer winner ">
-                    <div class="multiplayer__player ">
-                        <p class="result-name">Player 3 <span id="winner">(Winner)</span></p>
-                        <p><span id="pairs"></span>8 Pairs</p>
-                    </div>
-                </li>
-                <li class="multiplayer lost">
-                    <div class="multiplayer__player">
-                        <p class="result-name">Player 3</p>
-                        <p><span class="pairs" id="pairs">8 Pairs</span></p>
-                    </div>
-                </li>
-                <li class="multiplayer lost">
-                    <div class="multiplayer__player">
-                        <p class="result-name">Player 3</p>
-                        <p><span class="pairs" id="pairs">8 Pairs</span></p>
-                    </div>
-                </li>
-                <li class="multiplayer lost">
-                    <div class="multiplayer__player">
-                        <p class="result-name">Player 3</p>
-                        <p><span class="pairs" id="pairs">8 Pairs</span></p>
-                    </div>
-                </li> -->
             </ul>
         </section>
         <!-- SINGLE MODE -->
@@ -120,11 +95,11 @@
         </div>
     </div>
 </section>
-     <section class="menu">
+     <section class="menu hide-button-menu">
         <div class="buttons-container">
-            <button class="buttons-container__btn buttons-container__btn--restart">Restart</button>
-            <button class="buttons-container__btn ">New Game</button>
-            <button class="buttons-container__btn ">Resume Game</button>
+            <button class="buttons-container__btn buttons-container__btn--restart" id="restartGame">Restart</button>
+            <button class="buttons-container__btn" id="newGame">New Game</button>
+            <button class="buttons-container__btn" id="resumeGame">Resume Game</button>
         </div>
 </section>
      <section class="game-content toggle-game-content">
@@ -182,7 +157,7 @@
     </div>
 </section>
    </main>
-
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 </body>
 
 </html>
