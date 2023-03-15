@@ -53,6 +53,7 @@ const CreatePlayersInSummary = players => {
 		ulList.appendChild(newLiItem)
 		addRelevantPlayer++
 	}
+	winnerMultiplayer()
 }
 const winnerMultiplayer = () => {
 	const liList = document.querySelectorAll('.multiplayer')
