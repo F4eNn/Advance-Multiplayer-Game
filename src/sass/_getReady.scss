@@ -42,11 +42,11 @@
 .hideTimerPopup{
     display: none;
 }
-@media (max-height: 567px) {
-	.get-ready-timer {
-		transform: scaleY(2.5);
-		.container-timer {
-			transform: scaleY(0.4);
-		}
-	}
+@media (orientation: landscape){
+    .get-ready-timer{
+        height: 150vh;
+    }
+    
+
+
 }
