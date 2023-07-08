@@ -1,5 +1,4 @@
 
-/////////////////////////////////////// TO MOGE EXPORTOWAĆ
 function checkNumberPairs() {
 	const cardBox = document.querySelectorAll('.single-card-box .card')
 	let wrong = false

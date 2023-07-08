@@ -1,171 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory</title>
     <!-- Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-<!-- Icons -->
-<script src="https://kit.fontawesome.com/55a6f61747.js" crossorigin="anonymous"></script>
-<!-- script -->
-<script src="./src/js/variables.js" defer></script>
-<script src="./src/js/shuffleCard.js"  defer></script>
-<script src="./src/js/currentSettings.js"  defer></script>
-<script src="./src/js/mapSize.js"  defer></script>
-<script src="./src/js/mode.js"  defer></script>
-<script src="./src/js/prepareGame.js"  defer></script>
-<script src="./src/js/checkPairs.js"  defer></script>
-<script src="./src/js/playerTurn.js"  defer></script>
-<script src="./src/js/showResult.js"  defer></script>
-<script src="./src/js/loadGame.js"  defer></script>
-<!-- Styles -->
-<link rel="stylesheet" href="./dist/css/styles.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/55a6f61747.js" crossorigin="anonymous"></script>
+    <!-- script -->
+    <script src="./src/js/variables.js" defer></script>
+    <script src="./src/js/shuffleCard.js" defer></script>
+    <script src="./src/js/currentSettings.js" defer></script>
+    <script src="./src/js/mapSize.js" defer></script>
+    <script src="./src/js/mode.js" defer></script>
+    <script src="./src/js/prepareGame.js" defer></script>
+    <script src="./src/js/checkPairs.js" defer></script>
+    <script src="./src/js/playerTurn.js" defer></script>
+    <script src="./src/js/showResult.js" defer></script>
+    <script src="./src/js/loadGame.js" defer></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="./dist/css/styles.min.css">
 </head>
 
 <body>
-   <main>
-     <section class="start-game">
-    <h1 class="start-game__title">Memory</h1>
-    <div class="items-box">
-        <div class="item">
-            <p>select Theme</p>
-            <div class="button-box">
-                <button autofocus class="button-box__button">Numbers</button>
-                <button class="button-box__button">Icons</button>
-            </div>
-        </div>
-        <div class="item">
-            <p>Numbers of Players</p>
-            <div class="button-box">
-                <button autofocus class="button-box__button">1</button>
-                <button class="button-box__button">2</button>
-                <button class="button-box__button">3</button>
-                <button class="button-box__button">4</button>
-            </div>
-        </div>
-        <div class="item">
-            <p>Grid Size</p>
-            <div class="button-box">
-                <button autofocus class="button-box__button">4x4</button>
-                <button class="button-box__button">6x6</button>
-            </div>
-        </div>
-        <div class="item">
-            <div class="button-box">
-                <button class="button-box__button button-box__button--primary">Start Game</button>
-            </div>
-        </div>
-    </div>
-</section>
-     <section class="get-ready-timer hideTimerPopup">
-
-    <div class="container-timer">
-        <!-- <h2>Ready for</h2> -->
-        <button class="timer-button">Ready!</button>
-    </div>
-</section>
-     <section class="summary show-result">
-    <!-- Title -->
-    <div class="summary__mode">
-        <div class="text-box">
-            <h2 class="text-box__title">You did it!</h2>
-            <p>Game over! Here are the results...</p>
-        </div>
-        <!-- MULTIPLAYER MODE -->
-        <section class="multiplayer-box">
-            <ul>
-            </ul>
-        </section>
-        <!-- SINGLE MODE -->
-        <section class="single-box">
-            <ul>
-                <li class="single">
-                    <div class="multiplayer__player">
-                        <p class="result-name">Time Elapsed</p>
-                        <p class="time">1:53</p>
+    <main>
+        <section class="start-game">
+            <h1 class="start-game__title">Memory</h1>
+            <div class="items-box">
+                <div class="item">
+                    <p>select Theme</p>
+                    <div class="button-box">
+                        <button autofocus class="button-box__button">Numbers</button>
+                        <button class="button-box__button">Icons</button>
                     </div>
-                </li>
-                <li class="single">
-                    <div class="multiplayer__player">
-                        <p class="result-name">Moves Taken</p>
-                        <p class="moves"><span id="number-of-moves">39</span> Moves</p>
+                </div>
+                <div class="item">
+                    <p>Numbers of Players</p>
+                    <div class="button-box">
+                        <button autofocus class="button-box__button">1</button>
+                        <button class="button-box__button">2</button>
+                        <button class="button-box__button">3</button>
+                        <button class="button-box__button">4</button>
                     </div>
-                </li>
-            </ul>
+                </div>
+                <div class="item">
+                    <p>Grid Size</p>
+                    <div class="button-box">
+                        <button autofocus class="button-box__button">4x4</button>
+                        <button class="button-box__button">6x6</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="button-box">
+                        <button class="button-box__button button-box__button--primary">Start Game</button>
+                    </div>
+                </div>
+            </div>
         </section>
-        <div class="button-container">
-            <button class="button-container__btn" id="restartGame">Restart</button>
-            <button class="button-container__btn button-container__btn--colors" id="newGame">Setup New Game</button>
-        </div>
-    </div>
-</section>
-     <section class="menu hide-button-menu">
-        <div class="buttons-container">
-            <button class="buttons-container__btn buttons-container__btn--restart" id="restartGame">Restart</button>
-            <button class="buttons-container__btn" id="newGame">New Game</button>
-            <button class="buttons-container__btn" id="resumeGame">Resume Game</button>
-        </div>
-</section>
-     <section class="game-content toggle-game-content">
-    <!-- Navigation -->
-    <div class="nav wrapper">
-        <h2 class="nav__title">memory</h2>
-        <div class="buttons-desktop">
-            <button class="buttons-desktop__btn buttons-desktop__btn--restart" id="restartGame">Restart</button>
-            <button class="buttons-desktop__btn buttons-desktop__btn--new-game" id="newGame">New Game</button>
-        </div>
-        <button class="nav__menu-mobile">Menu</button>
-    </div>
-    <!-- Grid Container -->
-    <div class="large-grid-container wrapper">
-        <!-- <div class="single-card-box" id="">
-            <div class="card">
-                <div class="theback"><i class="fa-solid fa-question"></i></div>
-                <div class="thefront"><i class="fa-solid fa-anchor"></i></div>
-            </div>
-        </div>  -->
-    </div>
-    <div class="small-grid-container">
-        <!-- <div class="single-card-box">
-            <div class="card">
-                <div class="theback"><i class="fa-solid fa-question"></i></div>
-                <div class="thefront"><i class="fa-solid fa-anchor"></i></div>
-            </div>
-        </div> -->
+        <section class="get-ready-timer hideTimerPopup">
 
-    </div>
-    <div class="footer-multiplayer wrapper">
-        <!-- <div class="multiplayer-box-item">
-            <div class="player tracked ">
-                <div class="target-turn"></div>
-                <p class="short-name">P1</p>
-                <p class="long-name">Player 1</p>
-                <p class="player__pair-number">4</p>
+            <div class="container-timer">
+                <!-- <h2>Ready for</h2> -->
+                <button class="timer-button">Ready!</button>
             </div>
-            <p class="turn-info">current turn</p>
-        </div> -->
-    </div>
-    <div class="footer-single wrapper">
-        <div class="single-player-box-item">
-            <div class="single-player ">
-                <p class="long-name">Time</p>
-                <p class="player__pair-number" id="time">0:00</p>
+        </section>
+        <section class="summary show-result">
+            <!-- Title -->
+            <div class="summary__mode">
+                <div class="text-box">
+                    <h2 class="text-box__title">You did it!</h2>
+                    <p>Game over! Here are the results...</p>
+                </div>
+                <!-- MULTIPLAYER MODE -->
+                <section class="multiplayer-box">
+                    <ul>
+                    </ul>
+                </section>
+                <!-- SINGLE MODE -->
+                <section class="single-box">
+                    <ul>
+                        <li class="single">
+                            <div class="multiplayer__player">
+                                <p class="result-name">Time Elapsed</p>
+                                <p class="time">1:53</p>
+                            </div>
+                        </li>
+                        <li class="single">
+                            <div class="multiplayer__player">
+                                <p class="result-name">Moves Taken</p>
+                                <p class="moves"><span id="number-of-moves">39</span> Moves</p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+                <div class="button-container">
+                    <button class="button-container__btn" id="restartGame">Restart</button>
+                    <button class="button-container__btn button-container__btn--colors" id="newGame">Setup New
+                        Game</button>
+                </div>
             </div>
-        </div>
-        <div class="single-player-box-item">
-            <div class="single-player ">
-                <p class="long-name">Moves</p>
-                <p class="player__pair-number" id="moves">0</p>
+        </section>
+        <section class="menu hide-button-menu">
+            <div class="buttons-container">
+                <button class="buttons-container__btn buttons-container__btn--restart" id="restartGame">Restart</button>
+                <button class="buttons-container__btn" id="newGame">New Game</button>
+                <button class="buttons-container__btn" id="resumeGame">Resume Game</button>
             </div>
-        </div>
-    </div>
-</section>
-   </main>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+        </section>
+        <section class="game-content toggle-game-content">
+            <!-- Navigation -->
+            <div class="nav wrapper">
+                <h2 class="nav__title">memory</h2>
+                <div class="buttons-desktop">
+                    <button class="buttons-desktop__btn buttons-desktop__btn--restart" id="restartGame">Restart</button>
+                    <button class="buttons-desktop__btn buttons-desktop__btn--new-game" id="newGame">New Game</button>
+                </div>
+                <button class="nav__menu-mobile">Menu</button>
+            </div>
+            <!-- Grid Container -->
+            <div class="large-grid-container wrapper">
+
+            </div>
+            <div class="small-grid-container">
+            </div>
+            <div class="footer-multiplayer wrapper">
+
+            </div>
+            <div class="footer-single wrapper">
+                <div class="single-player-box-item">
+                    <div class="single-player ">
+                        <p class="long-name">Time</p>
+                        <p class="player__pair-number" id="time">0:00</p>
+                    </div>
+                </div>
+                <div class="single-player-box-item">
+                    <div class="single-player ">
+                        <p class="long-name">Moves</p>
+                        <p class="player__pair-number" id="moves">0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 </body>
 
 </html>
